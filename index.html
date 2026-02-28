@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinView • Financial Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>📊 FinView</h1>
+        <div class="header-buttons">
+            <div id="auth-buttons">
+                <button id="login-btn" class="auth-btn">Login</button>
+                <button id="register-btn" class="auth-btn">Register</button>
+            </div>
+            <div id="user-session" class="hidden">
+                <span id="user-balance">Balance: $0.00</span>
+                <button id="deposit-btn">Deposit</button>
+                <button id="logout-btn">Logout</button>
+            </div>
+            <button id="theme-toggle">🌙 Dark</button>
+        </div>
+    </header>
+
+    <main class="app-layout">
+        <div class="main-content">
+            <!-- Left Column: Market Search (Stocks / Forex / Crypto) -->
+            <section class="market-section">
+                <h2>Market Search</h2>
+                <div class="selector-container">
+                    <label for="asset-type">Asset Type:</label>
+                    <select id="asset-type">
+                        <option value="stocks" selected>Stocks</option>
+                        <option value="crypto">Cryptocurrency</option>
+                        <option value="forex">Forex</option>
+                        <option value="commodities">Commodities</option>
+                    </select>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="asset-symbol" placeholder="Enter symbol (e.g., AAPL, BTC, EURUSD)" value="AAPL">
+                    <button id="search-asset">Search</button>
+                </div>
+                <div class="info-card">
+                    <div id="asset-info-header">
+                        <h3 id="asset-name">Apple Inc.</h3>
+                        <div id="trade-buttons" class="hidden">
+                            <button id="buy-btn">Buy</button>
+                            <button id="sell-btn">Sell</button>
+                        </div>
+                    </div>
+                    <p id="asset-price">$150.00</p>
+                    <p id="asset-change">Change: <span id="asset-change-value">+0.5%</span></p>
+                </div>
+                <canvas id="asset-chart" width="400" height="200"></canvas>
+                <p id="forex-note" class="note" style="display: none;">🔧 Forex data coming soon! Use Stocks or Crypto for now.</p>
+            </section>
+        </div>
+
+        <div class="sidebar">
+            <!-- User Portfolio Section -->
+            <section id="portfolio-section" class="sidebar-section hidden">
+                <h2>My Portfolio</h2>
+                <div id="portfolio-list">
+                    <!-- Portfolio items will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Right Column: Top Assets -->
+            <section class="sidebar-section">
+                <h2 id="top-assets-title">Top Cryptocurrencies</h2>
+                <div id="top-assets-list" class="asset-grid">
+                    <!-- Dynamically filled -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script src="script.js" defer></script>
+
+    <!-- Auth Modals -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <input type="text" id="register-username" placeholder="Username" required>
+                <input type="email" id="register-email" placeholder="Email" required>
+                <input type="password" id="register-password" placeholder="Password" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="trade-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="trade-modal-title">Trade Asset</h2>
+            <form id="trade-form">
+                <p>Asset: <span id="trade-asset-symbol"></span></p>
+                <p>Price: <span id="trade-asset-price"></span></p>
+                <p>Balance: <span id="trade-user-balance"></span></p>
+                <input type="number" id="trade-quantity" placeholder="Quantity" required min="0.00001" step="0.00001">
+                <p>Estimated Cost: <span id="trade-estimated-cost">$0.00</span></p>
+                <button type="submit" id="trade-submit-btn">Confirm</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <input type="email" id="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="deposit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Deposit Funds</h2>
+            <form id="deposit-form">
+                <input type="number" id="deposit-amount" placeholder="Amount (USD)" required min="1">
+                <button type="submit">Get Deposit Address</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
